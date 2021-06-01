@@ -25,7 +25,6 @@
         status_code: 200
         headers:
           Content-Type: "application/json"
-          Authorization: "Bearer x"
         return_content: yes
       register: result_current_job
 
