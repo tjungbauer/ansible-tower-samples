@@ -5,3 +5,7 @@
       debug:
         msg: "Hello World!"
 
+    - name: Get the previous job in the current workflow
+      tower_previous_workflow_job:
+        tower_job_id: "{{ lookup('env', 'JOB_ID') }}"
+      register: previous_job
