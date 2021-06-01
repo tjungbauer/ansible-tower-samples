@@ -1,10 +1,6 @@
-- name: Hello World Sample
+- name: Get Current JOB_ID
   hosts: all
   tasks:
-    - name: Hello Message
-      debug:
-        msg: "Hello World!"
-
     - name: Print env
       command: env
       register: x
@@ -12,3 +8,7 @@
     - name: x
       debug:
         msg: "{{ x }}"
+        
+    - name: Get JOB_ID from environment variables
+      debug:
+        msg: "{{ lookup('env','JOB_ID') }}"
