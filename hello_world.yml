@@ -1,14 +1,11 @@
 - name: Get Current JOB_ID
   hosts: all
   tasks:
-    - name: Print env
-      command: env
-      register: x
-      
-    - name: x
-      debug:
-        msg: "{{ x }}"
         
-    - name: Get JOB_ID from environment variables
+    - name: Get JOB_ID from environment variables 1st option
       debug:
         msg: "{{ lookup('env','JOB_ID') }}"
+
+    - name: Get JOB_ID from environment variables 2nd option
+      debug:
+        msg: "{{ ansible_env.JOB_ID }}"
