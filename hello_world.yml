@@ -21,10 +21,6 @@
         method: POST
         body: '{ "username": "admin", "password": "redhat" }'
         body_format: json
-        user: "admin"
-        password: "redhat"
-        status_code: 200
-        return_content: yes
       register: result_token
     
     - debug: 
