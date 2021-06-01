@@ -9,3 +9,21 @@
     - name: Get JOB_ID from environment variables 2nd option
       debug:
         msg: "{{ ansible_env.JOB_ID }}"
+        
+    - name: "[Tower] GetAcces Token for Admin user"
+      uri:
+        url: "https://tower.ispworld.at/api/v2/tokens/"
+        validate_certs: false
+        method: GET
+        force_basic_auth: true
+        user: "admin"
+        password: "redhat"
+        status_code: 200
+        headers:
+          Content-Type: "application/json"
+        return_content: yes
+      register: result_get_token
+
+    - fail:
+        msg: "It seems there exists already an access token"
+      when: 'result_get_token.json.count >= 1'
