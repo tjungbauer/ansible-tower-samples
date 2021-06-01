@@ -14,26 +14,14 @@
       set_fact:
         job_id: "{{ ansible_env.JOB_ID }}"
       
-    - name: "[Tower] GetAccess Token"
-      uri:
-        url: "https://tower.ispworld.at//api/v1/authtoken/"
-        validate_certs: true
-        method: POST
-        body: '{ "username": "admin", "password": "redhat" }'
-        body_format: json
-      register: result_token
-    
-    - debug: 
-        msg: "{{result_token }}"
-      
     - name: "[Tower] Get current job details"
       uri:
         url: "https://tower.ispworld.at/api/v2/jobs/{{ job_id }}"
         validate_certs: true
         method: GET
         force_basic_auth: true
-        #user: "admin"
-        #password: "redhat"
+        user: "admin"
+        password: "redhat"
         status_code: 200
         headers:
           Content-Type: "application/json"
@@ -43,3 +31,7 @@
 
     - debug:
         msg: "{{ result_current_job.json.related.source_workflow_job }}"
+        
+    - name: Set_fact for source workflow ID 
+      set_fact:
+        job_id: "{{ result_current_job.json.related.source_workflow_job }}"
