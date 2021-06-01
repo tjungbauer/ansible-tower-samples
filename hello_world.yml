@@ -7,3 +7,8 @@
 
     - name: Print env
       command: env
+      register: x
+      
+    - name: x
+      debug:
+        msg: "{{ x }}"
