@@ -14,18 +14,34 @@
       set_fact:
         job_id: "{{ ansible_env.JOB_ID }}"
       
-        
-    - name: "[Tower] GetAcces current job details"
+    - name: "[Tower] GetAccess Token"
+      uri:
+        url: "https://tower.ispworld.at//api/v1/authtoken/"
+        validate_certs: true
+        method: POST
+        body: '{ "username": "admin", "password": "redhat" }'
+        body_format: json
+        user: "admin"
+        password: "redhat"
+        status_code: 200
+        return_content: yes
+      register: result_token
+    
+    - debug: 
+        msg: "{{result_token }}"
+      
+    - name: "[Tower] Get current job details"
       uri:
         url: "https://tower.ispworld.at/api/v2/jobs/{{ job_id }}"
         validate_certs: true
         method: GET
         force_basic_auth: true
-        user: "admin"
-        password: "redhat"
+        #user: "admin"
+        #password: "redhat"
         status_code: 200
         headers:
           Content-Type: "application/json"
+          Authorization: "Bearer x"
         return_content: yes
       register: result_current_job
 
