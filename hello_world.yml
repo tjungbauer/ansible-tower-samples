@@ -30,4 +30,4 @@
       register: result_current_job
 
     - debug:
-        msg: "{{ result_current_job.json.source_workflow_job }}"
+        msg: "{{ result_current_job.json.related.source_workflow_job }}"
