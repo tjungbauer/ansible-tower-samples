@@ -1,4 +1,4 @@
-- name: Get Current JOB_ID
+- name: Work with API
   hosts: all
   tasks:
         
