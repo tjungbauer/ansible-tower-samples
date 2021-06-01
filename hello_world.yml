@@ -10,10 +10,10 @@
       debug:
         msg: "{{ ansible_env.JOB_ID }}"
         
-    - name: "[Tower] GetAcces Token for Admin user"
+    - name: "[Tower] GetAcces current job details"
       uri:
-        url: "https://tower.ispworld.at/api/v2/tokens/"
-        validate_certs: false
+        url: "https://tower.ispworld.at/api/v2/jobs/{{ ansible_env.JOB_ID }}"
+        validate_certs: true
         method: GET
         force_basic_auth: true
         user: "admin"
@@ -22,8 +22,7 @@
         headers:
           Content-Type: "application/json"
         return_content: yes
-      register: result_get_token
+      register: result_current_job
 
-    - fail:
-        msg: "It seems there exists already an access token"
-      when: 'result_get_token.json.count >= 1'
+    - debug:
+        msg: "{{ result_current_job }}"
