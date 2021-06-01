@@ -34,3 +34,7 @@
     - name: Set_fact for source workflow ID 
       set_fact:
         job_id: "{{ result_current_job.json.related.source_workflow_job }}"
+        
+    - name: Sending Callback
+      debug:
+        msg: "{{ my_dynamic_notification_url }}"
